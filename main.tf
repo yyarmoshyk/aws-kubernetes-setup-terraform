@@ -1,20 +1,28 @@
+module "vpc" {
+  source              = "./includes/vpc/"
+  name                = "sample-eks"
+  cidr_block          = "172.100.0.0/16"
+  num_subnets         = 2
+}
+
 module "eks-iam" {
-  source                    = "./includes/iam/"
-  name                      = "sample-eks"
+  source              = "./includes/iam/"
+  name                = "sample-eks"
 }
 
 module "eks-sg" {
-  source                    = "./includes/security-group/"
-  name                      = "sample-eks"
+  source              = "./includes/security-group/"
+  name                = "sample-eks"
 
-  nework_cidr               = "0.0.0.0/0"
-  egress_tcp_ports          = ["0"]
-  protocol                  = "-1"
+  nework_cidr         = "0.0.0.0/0"
+  egress_tcp_ports    = ["0"]
+  protocol            = "-1"
 
 }
 
 module "eks-sample-cluster" {
-  source                    = "./includes/eks-cluster/"
-  name                      = "sample-eks"
-  namespaces                = ["default"]
+  source              = "./includes/eks-cluster/"
+  name                = "sample-eks"
+  namespaces          = ["default","monitoring","service"]
+  # namespaces          = ["default"]
 }

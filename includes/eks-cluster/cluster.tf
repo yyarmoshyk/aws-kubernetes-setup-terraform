@@ -1,6 +1,9 @@
 locals {
-  default_subnet_ids_string     = join(",", data.aws_subnet_ids.default.ids)
-  default_subnet_ids_list       = split(",", local.default_subnet_ids_string)
+  private_subnet_ids_string     = join(",", data.aws_subnet_ids.private.ids)
+  private_subnet_ids_list       = split(",", local.private_subnet_ids_string)
+  public_subnet_ids_string     = join(",", data.aws_subnet_ids.public.ids)
+  public_subnet_ids_list       = split(",", local.public_subnet_ids_string)
+
 }
 
 resource "aws_eks_cluster" "cluster" {
@@ -10,10 +13,10 @@ resource "aws_eks_cluster" "cluster" {
   enabled_cluster_log_types = var.cluster_enabled_log_types
 
   vpc_config {
-    # endpoint_private_access = true
+    endpoint_private_access = false
     endpoint_public_access  = true
 
-    subnet_ids              = slice(local.default_subnet_ids_list,0,2)
+    subnet_ids              = concat(local.private_subnet_ids_list,local.public_subnet_ids_list)
 
     # security groups to apply to the EKS-managed Elastic Network Interfaces that are created in your worker node subnets
     security_group_ids      = [

@@ -7,6 +7,7 @@ Requirements:
 
 The order of commands to be executed to create the EKS cluster:
 ```bash
+terraform apply -auto-approve -target module.vpc -var region=us-east-1
 terraform apply -auto-approve -target module.eks-iam -var region=us-east-1
 terraform apply -auto-approve -target module.eks-sg -var region=us-east-1
 terraform apply -auto-approve -var region=us-east-1

@@ -3,7 +3,10 @@ data "aws_availability_zones" "available" {}
 data "aws_region" "current" {}
 
 data "aws_vpc" "selected" {
-  default = true
+  filter {
+  	name   = "tag:Name"
+    values = ["${var.name} VPC"]
+  }
 }
 
 data "external" "env" {

@@ -3,11 +3,30 @@ data "aws_availability_zones" "available" {}
 data "aws_region" "current" {}
 
 data "aws_vpc" "selected" {
-  default = true
+  filter {
+  	name   = "tag:Name"
+    values = ["${var.name} VPC"]
+  }
 }
 
-data "aws_subnet_ids" "default" {
+data "aws_subnet_ids" "public" {
   vpc_id = data.aws_vpc.selected.id
+
+  filter {
+    name   = "tag:type"
+    values = ["public"]
+  }
+
+}
+
+data "aws_subnet_ids" "private" {
+  vpc_id = data.aws_vpc.selected.id
+
+  filter {
+    name   = "tag:type"
+    values = ["private"]
+  }
+
 }
 
 data "aws_iam_role" "eks-service-role" {

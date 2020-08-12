@@ -9,7 +9,10 @@ data "aws_iam_policy_document" "node-assume-policy" {
 
     principals {
       type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
+      identifiers = [
+        "ec2.amazonaws.com",
+        "eks-fargate-pods.amazonaws.com"
+      ]
     }
   }
 }
