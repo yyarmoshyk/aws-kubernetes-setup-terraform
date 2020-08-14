@@ -8,7 +8,6 @@ The code structure is not optimal and it was made for purpose. Please PM me for 
 ## Requirements:
 1. [Terraform v0.12.29](https://releases.hashicorp.com/terraform/0.12.29/)
 2. [Configured aws authentication](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html) on the machine that is used to run the infrastructure update
-3. [Default VPC](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html) in the selected region
 
 ## Steps
 The order of commands to be executed to create the EKS cluster:
