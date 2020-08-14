@@ -11,7 +11,6 @@ locals {
       "96.0/19",
     ]
   }
-  region_short = "${substr("${element("${split("-", "${data.aws_region.current.name}")}", 0)}", 0, 1)}${substr("${element("${split("-", "${data.aws_region.current.name}")}", 1)}", 0, 1)}${substr("${element("${split("-", "${data.aws_region.current.name}")}", 2)}", 0, 1)}"
 
   default-tags = {
     provisioner               = "terraform"
@@ -28,3 +27,7 @@ variable "num_subnets" {
 }
 
 variable "name" {}
+
+variable "public_key" {
+  default = ""
+}

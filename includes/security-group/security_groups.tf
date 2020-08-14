@@ -2,7 +2,7 @@ resource "aws_security_group" "custom" {
   name        = local.name_prefix
   description = "The custom security group for ${local.name_prefix} in default VPC"
 
-  vpc_id = data.aws_vpc.selected.id
+  vpc_id = var.vpc_id
 
   tags = merge(local.default-tags, { "Name" = "${local.name_prefix}" })
 

@@ -19,12 +19,12 @@ variable "cluster_enabled_log_types" {
 
 variable "namespaces" {
   type = list
-  default = ["default"]
+  default = []
 }
 
-locals {
-  region_short = "${substr("${element("${split("-", "${data.aws_region.current.name}")}", 0)}", 0, 1)}${substr("${element("${split("-", "${data.aws_region.current.name}")}", 1)}", 0, 1)}${substr("${element("${split("-", "${data.aws_region.current.name}")}", 2)}", 0, 1)}"
+variable "vpc_id" {}
 
+locals {
   default-tags = {
     provisioner              = "terraform"
   }

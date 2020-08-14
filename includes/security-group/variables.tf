@@ -24,8 +24,9 @@ variable "protocol" {
   default = "tcp"
 }
 
+variable "vpc_id" {}
+
 locals {
-  region_short                = "${substr("${element("${split("-", "${data.aws_region.current.name}")}", 0)}", 0, 1)}${substr("${element("${split("-", "${data.aws_region.current.name}")}", 1)}", 0, 1)}${substr("${element("${split("-", "${data.aws_region.current.name}")}", 2)}", 0, 1)}"
   name_prefix                 = "${var.name}-custom"
 
   default-tags = {

@@ -7,7 +7,7 @@ resource "aws_security_group" "base-out-vpc" {
 
   tags = merge(local.default-tags, { "Name" = "base-out-vpc" })
 
-  vpc_id = data.aws_vpc.selected.id
+  vpc_id = var.vpc_id
 
   egress {
     from_port   = 0
@@ -26,7 +26,7 @@ resource "aws_security_group" "base-in-vpc" {
 
   tags = merge(local.default-tags, { "Name" = "base-in-vpc" })
 
-  vpc_id = data.aws_vpc.selected.id
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 0
@@ -49,12 +49,30 @@ resource "aws_security_group" "base-out-internet" {
 
   tags = merge(local.default-tags, { "Name" = "base-out-internet" })
 
-  vpc_id = data.aws_vpc.selected.id
+  vpc_id = var.vpc_id
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "efs" {
+  name        = "base-in-efs-vpc"
+  description = "Provides base ingress to the EFS"
+
+  tags = merge(local.default-tags, { "Name" = "base-in-efs-vpc" })
+
+  vpc_id = var.vpc_id
+
+  ingress {
+    from_port   = 2049
+    to_port     = 2049
+    protocol    = "tcp"
+    cidr_blocks = [
+      data.aws_vpc.selected.cidr_block
+    ]
   }
 }
