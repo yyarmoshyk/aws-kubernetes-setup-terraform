@@ -28,6 +28,19 @@ module "eks-sg" {
 
 }
 
+module "eks-efs" {
+  source              = "./includes/efs/"
+  name                = "sample-eks"
+
+  vpc_id              = module.vpc.vpc_id
+  security_group_ids  = [module.eks-sg.efs_security_group_id]
+  network_type        = "nat"
+}
+
+output "eks_efs_id" {
+  value = module.eks-efs.efs_id
+}
+
 module "eks-sample-cluster" {
   source              = "./includes/eks-cluster/"
   name                = "sample-eks"
