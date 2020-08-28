@@ -34,7 +34,7 @@ module "eks-efs" {
 
   vpc_id              = module.vpc.vpc_id
   security_group_ids  = [module.eks-sg.efs_security_group_id]
-  network_type        = "nat"
+  network_type        = "private"
 }
 
 output "eks_efs_id" {
